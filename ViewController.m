@@ -11,6 +11,7 @@
 #import "contactsTableViewCell.h"
 
 #import "ContactDataHelper.h"
+#import "NSString+Utils.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UISearchDisplayDelegate>
 {
@@ -412,21 +413,25 @@
     }
     
     for (int i = 0; i < tempResults.count; i++) {
-        NSString *storeString = [(FriendModel *)tempResults[i] nameStr];
+        NSString *storeString = [[(FriendModel *)tempResults[i] nameStr] pinyin];
         
         NSRange storeRange = NSMakeRange(0, storeString.length);
         
-        NSRange foundRange = [storeString rangeOfString:searchText options:searchOptions range:storeRange];
+        //  NSRange storeRange = NSMakeRange(0,searchText.pinyin.length);
+        
+        if (storeString.length < storeRange.length) {
+            continue;
+        }
+
+        
+        NSRange foundRange = [storeString rangeOfString:searchText.pinyin options:searchOptions range:storeRange];
         if (foundRange.length) {
             
             [self.searchResultArr addObject:tempResults[i]];
         }
     }
-    NSLog(@"%ld",self.searchResultArr.count);
     
     [self.tableView reloadData];
-    
-    NSLog(@"wowoow");
 }
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     NSLog(@"ninini");
