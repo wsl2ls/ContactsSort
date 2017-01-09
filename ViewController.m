@@ -269,12 +269,12 @@
         
         FriendModel * model = self.searchResultArr[indexPath.row];
         cell.nameLabel.text = model.nameStr;
-        cell.headImageView.image = [UIImage imageNamed:model.imageName];
+        cell.headImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.jpeg",model.imageName]];
         return cell;
     }
        FriendModel * model = self.contactsSource[indexPath.section][indexPath.row];
         cell.nameLabel.text = model.nameStr;
-        cell.headImageView.image = [UIImage imageNamed:model.imageName];
+        cell.headImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.jpeg",model.imageName]];
     return cell;
 }
 
